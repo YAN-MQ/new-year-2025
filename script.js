@@ -2,8 +2,8 @@
 class FlipCard {
     constructor(element) {
         this.element = element;
-        this.topNumber = element.querySelector('.number:first-child');
-        this.bottomNumber = element.querySelector('.number:last-child');
+        this.topNumber = element.querySelector('.top');
+        this.bottomNumber = element.querySelector('.bottom');
         this.currentNumber = this.topNumber.textContent;
     }
 
@@ -12,12 +12,19 @@ class FlipCard {
 
         // 创建翻页动画元素
         const flipTop = document.createElement('div');
-        flipTop.className = 'number flip-top';
+        flipTop.className = 'top';
         flipTop.textContent = this.currentNumber;
+        flipTop.style.transformOrigin = 'bottom';
+        flipTop.style.position = 'absolute';
+        flipTop.style.zIndex = '2';
 
         const flipBottom = document.createElement('div');
-        flipBottom.className = 'number flip-bottom';
+        flipBottom.className = 'bottom';
         flipBottom.textContent = newNumber;
+        flipBottom.style.transformOrigin = 'top';
+        flipBottom.style.position = 'absolute';
+        flipBottom.style.zIndex = '1';
+        flipBottom.style.top = '50%';
 
         // 添加翻页元素
         this.element.appendChild(flipTop);
@@ -25,6 +32,7 @@ class FlipCard {
 
         // 开始动画
         requestAnimationFrame(() => {
+            this.element.classList.add('flip');
             flipTop.style.transform = 'rotateX(-180deg)';
             flipBottom.style.transform = 'rotateX(0)';
         });
@@ -34,9 +42,10 @@ class FlipCard {
             this.topNumber.textContent = newNumber;
             this.bottomNumber.textContent = newNumber;
             this.currentNumber = newNumber.toString();
+            this.element.classList.remove('flip');
             flipTop.remove();
             flipBottom.remove();
-        }, 300);
+        }, 600);
     }
 }
 
@@ -77,8 +86,6 @@ function updateCountdown() {
     if (gap <= 0) {
         clearInterval(countdownTimer);
         document.querySelector('.message p').innerText = '新年快乐！';
-        createFireworks();
-        playNewYearMusic();
         return;
     }
 
@@ -101,100 +108,4 @@ function updateCountdown() {
 // 立即更新一次
 updateCountdown();
 // 设置定时器
-const countdownTimer = setInterval(updateCountdown, 1000);
-
-// 播放新年音乐
-function playNewYearMusic() {
-    const audio = new Audio('https://music.163.com/song/media/outer/url?id=865632948.mp3');
-    audio.play();
-}
-
-// 烟花效果
-function createFireworks() {
-    const fireworks = document.getElementById('fireworks');
-    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
-    
-    function createParticle(startX, startY) {
-        const particle = document.createElement('div');
-        particle.style.position = 'absolute';
-        particle.style.width = '4px';
-        particle.style.height = '4px';
-        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-        particle.style.borderRadius = '50%';
-        particle.style.boxShadow = `0 0 ${6 + Math.random() * 4}px ${particle.style.background}`;
-        
-        const angle = Math.random() * Math.PI * 2;
-        const velocity = 3 + Math.random() * 5;
-        const lifetime = 1000 + Math.random() * 1000;
-        
-        let x = startX;
-        let y = startY;
-        let vx = Math.cos(angle) * velocity;
-        let vy = Math.sin(angle) * velocity;
-        
-        fireworks.appendChild(particle);
-        
-        const start = Date.now();
-        
-        function update() {
-            const elapsed = Date.now() - start;
-            if (elapsed > lifetime) {
-                particle.remove();
-                return;
-            }
-            
-            vy += 0.08;
-            x += vx;
-            y += vy;
-            
-            particle.style.opacity = (1 - elapsed / lifetime) * (0.8 + Math.random() * 0.2);
-            particle.style.transform = `translate(${x}px, ${y}px) scale(${1 - elapsed / lifetime})`;
-            
-            requestAnimationFrame(update);
-        }
-        
-        update();
-    }
-    
-    function createFirework() {
-        const startX = Math.random() * window.innerWidth;
-        const startY = window.innerHeight;
-        const targetY = window.innerHeight * 0.2 + Math.random() * window.innerHeight * 0.3;
-        
-        const trail = document.createElement('div');
-        trail.style.position = 'absolute';
-        trail.style.width = '2px';
-        trail.style.height = '2px';
-        trail.style.background = '#fff';
-        trail.style.borderRadius = '50%';
-        trail.style.boxShadow = '0 0 6px #fff';
-        
-        fireworks.appendChild(trail);
-        
-        let y = startY;
-        const speed = 15;
-        
-        function ascend() {
-            if (y > targetY) {
-                y -= speed;
-                trail.style.transform = `translate(${startX}px, ${y}px)`;
-                requestAnimationFrame(ascend);
-            } else {
-                trail.remove();
-                for (let i = 0; i < 80; i++) {
-                    createParticle(startX, y);
-                }
-            }
-        }
-        
-        ascend();
-    }
-    
-    function startFireworks() {
-        createFirework();
-        const delay = 200 + Math.random() * 1000;
-        setTimeout(startFireworks, delay);
-    }
-    
-    startFireworks();
-} 
+const countdownTimer = setInterval(updateCountdown, 1000); 

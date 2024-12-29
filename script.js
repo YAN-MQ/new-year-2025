@@ -1,17 +1,3 @@
-// 翻页动画函数
-function flipNumber(element, newNumber) {
-    const currentNumber = element.querySelector('.top').textContent;
-    if (currentNumber === newNumber.toString()) return;
-
-    element.classList.add('flip');
-    
-    setTimeout(() => {
-        element.querySelector('.top').textContent = newNumber;
-        element.querySelector('.bottom').textContent = newNumber;
-        element.classList.remove('flip');
-    }, 300);
-}
-
 // 更新数字显示
 function updateDisplay(id, number) {
     const str = number.toString().padStart(2, '0');
@@ -20,15 +6,15 @@ function updateDisplay(id, number) {
         const tens = Math.floor((number % 100) / 10);
         const ones = number % 10;
         
-        flipNumber(document.getElementById('days-hundreds'), hundreds);
-        flipNumber(document.getElementById('days-tens'), tens);
-        flipNumber(document.getElementById('days-ones'), ones);
+        document.getElementById('days-hundreds').textContent = hundreds;
+        document.getElementById('days-tens').textContent = tens;
+        document.getElementById('days-ones').textContent = ones;
     } else {
         const tens = Math.floor(number / 10);
         const ones = number % 10;
         
-        flipNumber(document.getElementById(`${id}-tens`), tens);
-        flipNumber(document.getElementById(`${id}-ones`), ones);
+        document.getElementById(`${id}-tens`).textContent = tens;
+        document.getElementById(`${id}-ones`).textContent = ones;
     }
 }
 
@@ -108,7 +94,6 @@ function createFireworks() {
             x += vx;
             y += vy;
             
-            // 添加闪烁效果
             particle.style.opacity = (1 - elapsed / lifetime) * (0.8 + Math.random() * 0.2);
             particle.style.transform = `translate(${x}px, ${y}px) scale(${1 - elapsed / lifetime})`;
             

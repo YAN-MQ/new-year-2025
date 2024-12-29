@@ -1,50 +1,23 @@
-// 翻页动画类
 class FlipCard {
     constructor(element) {
         this.element = element;
-        this.topNumber = element.querySelector('.top');
-        this.bottomNumber = element.querySelector('.bottom');
-        this.currentNumber = this.topNumber.textContent;
+        this.cardTop = element.querySelector('.card-top');
+        this.cardBottom = element.querySelector('.card-bottom');
+        this.cardBackBottom = element.querySelector('.card-back .card-bottom');
+        this.currentNumber = this.cardTop.textContent;
     }
 
     flip(newNumber) {
         if (this.currentNumber === newNumber.toString()) return;
 
-        // 创建翻页动画元素
-        const flipTop = document.createElement('div');
-        flipTop.className = 'top';
-        flipTop.textContent = this.currentNumber;
-        flipTop.style.transformOrigin = 'bottom';
-        flipTop.style.position = 'absolute';
-        flipTop.style.zIndex = '2';
+        this.cardBackBottom.textContent = newNumber;
+        this.element.classList.add('flip');
 
-        const flipBottom = document.createElement('div');
-        flipBottom.className = 'bottom';
-        flipBottom.textContent = newNumber;
-        flipBottom.style.transformOrigin = 'top';
-        flipBottom.style.position = 'absolute';
-        flipBottom.style.zIndex = '1';
-        flipBottom.style.top = '50%';
-
-        // 添加翻页元素
-        this.element.appendChild(flipTop);
-        this.element.appendChild(flipBottom);
-
-        // 开始动画
-        requestAnimationFrame(() => {
-            this.element.classList.add('flip');
-            flipTop.style.transform = 'rotateX(-180deg)';
-            flipBottom.style.transform = 'rotateX(0)';
-        });
-
-        // 动画结束后更新数字
         setTimeout(() => {
-            this.topNumber.textContent = newNumber;
-            this.bottomNumber.textContent = newNumber;
+            this.cardTop.textContent = newNumber;
+            this.cardBottom.textContent = newNumber;
             this.currentNumber = newNumber.toString();
             this.element.classList.remove('flip');
-            flipTop.remove();
-            flipBottom.remove();
         }, 600);
     }
 }
@@ -85,7 +58,7 @@ function updateCountdown() {
 
     if (gap <= 0) {
         clearInterval(countdownTimer);
-        document.querySelector('.message p').innerText = '新年快乐！';
+        document.querySelector('.message').innerText = '新年快乐！';
         return;
     }
 

@@ -8,64 +8,26 @@
 </head>
 <body>
     <div class="container">
-        <div class="countdown-wrapper">
-            <h1>2025新年倒计时</h1>
-            <div class="message">距离2025年还有</div>
-            <div class="countdown">
-                <!-- 天数（竖直排列） -->
-                <div class="days-column">
-                    <div class="flip-card" id="days-hundreds">
-                        <div class="number">0</div>
-                        <div class="number">0</div>
-                    </div>
-                    <div class="flip-card" id="days-tens">
-                        <div class="number">0</div>
-                        <div class="number">0</div>
-                    </div>
-                    <div class="flip-card" id="days-ones">
-                        <div class="number">0</div>
-                        <div class="number">0</div>
-                    </div>
-                    <span class="label">天</span>
-                </div>
-
-                <!-- 时分秒（横向排列） -->
-                <div class="time-row">
-                    <div class="number-group">
-                        <div class="flip-card" id="hours-tens">
-                            <div class="number">0</div>
-                            <div class="number">0</div>
-                        </div>
-                        <div class="flip-card" id="hours-ones">
-                            <div class="number">0</div>
-                            <div class="number">0</div>
-                        </div>
-                    </div>
-                    <span class="separator">:</span>
-                    <div class="number-group">
-                        <div class="flip-card" id="minutes-tens">
-                            <div class="number">0</div>
-                            <div class="number">0</div>
-                        </div>
-                        <div class="flip-card" id="minutes-ones">
-                            <div class="number">0</div>
-                            <div class="number">0</div>
-                        </div>
-                    </div>
-                    <span class="separator">:</span>
-                    <div class="number-group">
-                        <div class="flip-card" id="seconds-tens">
-                            <div class="number">0</div>
-                            <div class="number">0</div>
-                        </div>
-                        <div class="flip-card" id="seconds-ones">
-                            <div class="number">0</div>
-                            <div class="number">0</div>
-                        </div>
-                    </div>
-                </div>
+        <h1>2025新年倒计时</h1>
+        <div class="countdown">
+            <div class="time-box">
+                <span id="days">000</span>
+                <span class="label">天</span>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <span class="label">时</span>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <span class="label">分</span>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <span class="label">秒</span>
             </div>
         </div>
+        <div class="message">距离2025年还有</div>
     </div>
     <script src="script.js"></script>
 </body>

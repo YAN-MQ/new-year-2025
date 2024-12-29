@@ -1,5 +1,5 @@
 function updateCountdown() {
-    const newYear = new Date('January 1, 2025 00:00:00').getTime();
+    const newYear = new Date(2025, 0, 1, 0, 0, 0).getTime();
     const now = new Date().getTime();
     const gap = newYear - now;
 
@@ -27,5 +27,5 @@ function updateCountdown() {
 
 // 立即更新一次
 updateCountdown();
-// 设置定时器
+// 每秒更新一次
 const countdownTimer = setInterval(updateCountdown, 1000);

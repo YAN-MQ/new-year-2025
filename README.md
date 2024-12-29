@@ -17,4 +17,4 @@
 
 ## 在线预览
 
-访问 GitHub Pages 链接：[待部署] 
+访问 GitHub Pages 链接：[https://yan-mq.github.io/new-year-2025] 

@@ -46,4 +46,4 @@ function updateCountdown() {
 // 立即更新一次
 updateCountdown();
 // 设置定时器
-const countdownTimer = setInterval(updateCountdown, 1000); 
+const countdownTimer = setInterval(updateCountdown, 1000);

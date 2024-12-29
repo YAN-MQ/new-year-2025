@@ -6,15 +6,22 @@ function updateDisplay(id, number) {
         const tens = Math.floor((number % 100) / 10);
         const ones = number % 10;
         
-        document.getElementById('days-hundreds').textContent = hundreds;
-        document.getElementById('days-tens').textContent = tens;
-        document.getElementById('days-ones').textContent = ones;
+        const hundredsEl = document.getElementById('days-hundreds');
+        const tensEl = document.getElementById('days-tens');
+        const onesEl = document.getElementById('days-ones');
+        
+        hundredsEl.querySelectorAll('.number').forEach(el => el.textContent = hundreds);
+        tensEl.querySelectorAll('.number').forEach(el => el.textContent = tens);
+        onesEl.querySelectorAll('.number').forEach(el => el.textContent = ones);
     } else {
         const tens = Math.floor(number / 10);
         const ones = number % 10;
         
-        document.getElementById(`${id}-tens`).textContent = tens;
-        document.getElementById(`${id}-ones`).textContent = ones;
+        const tensEl = document.getElementById(`${id}-tens`);
+        const onesEl = document.getElementById(`${id}-ones`);
+        
+        tensEl.querySelectorAll('.number').forEach(el => el.textContent = tens);
+        onesEl.querySelectorAll('.number').forEach(el => el.textContent = ones);
     }
 }
 

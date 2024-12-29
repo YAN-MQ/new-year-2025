@@ -1,27 +1,70 @@
+// 翻页动画类
+class FlipCard {
+    constructor(element) {
+        this.element = element;
+        this.topNumber = element.querySelector('.number:first-child');
+        this.bottomNumber = element.querySelector('.number:last-child');
+        this.currentNumber = this.topNumber.textContent;
+    }
+
+    flip(newNumber) {
+        if (this.currentNumber === newNumber.toString()) return;
+
+        // 创建翻页动画元素
+        const flipTop = document.createElement('div');
+        flipTop.className = 'number flip-top';
+        flipTop.textContent = this.currentNumber;
+
+        const flipBottom = document.createElement('div');
+        flipBottom.className = 'number flip-bottom';
+        flipBottom.textContent = newNumber;
+
+        // 添加翻页元素
+        this.element.appendChild(flipTop);
+        this.element.appendChild(flipBottom);
+
+        // 开始动画
+        requestAnimationFrame(() => {
+            flipTop.style.transform = 'rotateX(-180deg)';
+            flipBottom.style.transform = 'rotateX(0)';
+        });
+
+        // 动画结束后更新数字
+        setTimeout(() => {
+            this.topNumber.textContent = newNumber;
+            this.bottomNumber.textContent = newNumber;
+            this.currentNumber = newNumber.toString();
+            flipTop.remove();
+            flipBottom.remove();
+        }, 300);
+    }
+}
+
+// 初始化所有翻页卡片
+const flipCards = {};
+['days-hundreds', 'days-tens', 'days-ones', 
+ 'hours-tens', 'hours-ones', 
+ 'minutes-tens', 'minutes-ones', 
+ 'seconds-tens', 'seconds-ones'].forEach(id => {
+    flipCards[id] = new FlipCard(document.getElementById(id));
+});
+
 // 更新数字显示
 function updateDisplay(id, number) {
-    const str = number.toString().padStart(2, '0');
     if (id === 'days') {
         const hundreds = Math.floor(number / 100);
         const tens = Math.floor((number % 100) / 10);
         const ones = number % 10;
         
-        const hundredsEl = document.getElementById('days-hundreds');
-        const tensEl = document.getElementById('days-tens');
-        const onesEl = document.getElementById('days-ones');
-        
-        hundredsEl.querySelectorAll('.number').forEach(el => el.textContent = hundreds);
-        tensEl.querySelectorAll('.number').forEach(el => el.textContent = tens);
-        onesEl.querySelectorAll('.number').forEach(el => el.textContent = ones);
+        flipCards['days-hundreds'].flip(hundreds);
+        flipCards['days-tens'].flip(tens);
+        flipCards['days-ones'].flip(ones);
     } else {
         const tens = Math.floor(number / 10);
         const ones = number % 10;
         
-        const tensEl = document.getElementById(`${id}-tens`);
-        const onesEl = document.getElementById(`${id}-ones`);
-        
-        tensEl.querySelectorAll('.number').forEach(el => el.textContent = tens);
-        onesEl.querySelectorAll('.number').forEach(el => el.textContent = ones);
+        flipCards[`${id}-tens`].flip(tens);
+        flipCards[`${id}-ones`].flip(ones);
     }
 }
 
@@ -30,6 +73,14 @@ function updateCountdown() {
     const newYear = new Date('January 1, 2025 00:00:00').getTime();
     const now = new Date().getTime();
     const gap = newYear - now;
+
+    if (gap <= 0) {
+        clearInterval(countdownTimer);
+        document.querySelector('.message p').innerText = '新年快乐！';
+        createFireworks();
+        playNewYearMusic();
+        return;
+    }
 
     const second = 1000;
     const minute = second * 60;
@@ -45,17 +96,12 @@ function updateCountdown() {
     updateDisplay('hours', h);
     updateDisplay('minutes', m);
     updateDisplay('seconds', s);
-
-    if (gap <= 0) {
-        clearInterval(countdownTimer);
-        document.querySelector('.message p').innerText = '新年快乐！';
-        createFireworks();
-        playNewYearMusic();
-    }
 }
 
-const countdownTimer = setInterval(updateCountdown, 1000);
+// 立即更新一次
 updateCountdown();
+// 设置定时器
+const countdownTimer = setInterval(updateCountdown, 1000);
 
 // 播放新年音乐
 function playNewYearMusic() {
@@ -63,7 +109,7 @@ function playNewYearMusic() {
     audio.play();
 }
 
-// 增强版烟花效果
+// 烟花效果
 function createFireworks() {
     const fireworks = document.getElementById('fireworks');
     const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
@@ -97,7 +143,7 @@ function createFireworks() {
                 return;
             }
             
-            vy += 0.08; // 调整重力效果
+            vy += 0.08;
             x += vx;
             y += vy;
             
@@ -115,7 +161,6 @@ function createFireworks() {
         const startY = window.innerHeight;
         const targetY = window.innerHeight * 0.2 + Math.random() * window.innerHeight * 0.3;
         
-        // 发射轨迹
         const trail = document.createElement('div');
         trail.style.position = 'absolute';
         trail.style.width = '2px';
@@ -136,7 +181,6 @@ function createFireworks() {
                 requestAnimationFrame(ascend);
             } else {
                 trail.remove();
-                // 爆炸效果
                 for (let i = 0; i < 80; i++) {
                     createParticle(startX, y);
                 }
@@ -146,7 +190,6 @@ function createFireworks() {
         ascend();
     }
     
-    // 定时发射烟花
     function startFireworks() {
         createFirework();
         const delay = 200 + Math.random() * 1000;

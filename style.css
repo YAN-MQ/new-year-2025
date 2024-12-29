@@ -16,7 +16,7 @@ body {
 
 .container {
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
     padding: 20px;
     text-align: center;
 }
@@ -41,29 +41,89 @@ h1 {
 .countdown {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     margin: 40px 0;
 }
 
 .time-block {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    border-radius: 16px;
-    min-width: 120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
 }
 
-.time-block span {
-    font-size: 3.5rem;
-    font-weight: 500;
-    color: #ffffff;
-    display: block;
+.flip-card {
+    position: relative;
+    width: 60px;
+    height: 90px;
+    margin: 0 2px;
+    background: #333;
+    border-radius: 8px;
+    perspective: 400px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+}
+
+.flip-card .top,
+.flip-card .bottom {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    font-weight: bold;
+    background: #333;
+    color: #fff;
+    padding: 0 8px;
+}
+
+.flip-card .top {
+    background: #444;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.flip-card .bottom {
+    bottom: 0;
+    background: #333;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.flip-card.flip .top {
+    animation: flip-top 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: bottom;
+}
+
+.flip-card.flip .bottom {
+    animation: flip-bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: top;
+}
+
+@keyframes flip-top {
+    0% {
+        transform: rotateX(0deg);
+    }
+    100% {
+        transform: rotateX(-90deg);
+    }
+}
+
+@keyframes flip-bottom {
+    0% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+    }
 }
 
 .time-block label {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: rgba(255, 255, 255, 0.7);
-    margin-top: 5px;
-    display: block;
+    margin-left: 10px;
 }
 
 .message {
@@ -84,16 +144,17 @@ h1 {
 @media (max-width: 768px) {
     .countdown {
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 20px;
     }
 
-    .time-block {
-        min-width: calc(50% - 10px);
-        padding: 15px;
+    .flip-card {
+        width: 40px;
+        height: 60px;
     }
 
-    .time-block span {
-        font-size: 2.5rem;
+    .flip-card .top,
+    .flip-card .bottom {
+        font-size: 32px;
     }
 
     h1 {
@@ -106,11 +167,13 @@ h1 {
         padding: 20px 10px;
     }
 
-    .time-block {
-        min-width: calc(50% - 5px);
+    .flip-card {
+        width: 30px;
+        height: 45px;
     }
 
-    .time-block span {
-        font-size: 2rem;
+    .flip-card .top,
+    .flip-card .bottom {
+        font-size: 24px;
     }
 } 

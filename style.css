@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
@@ -16,155 +16,117 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     padding: 20px;
 }
 
 .countdown-wrapper {
-    background: rgba(28, 28, 30, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 24px;
+    background: rgba(32, 32, 32, 0.95);
+    border-radius: 20px;
     padding: 40px;
     text-align: center;
-    box-shadow: 0 14px 44px rgba(0, 0, 0, 0.25);
 }
 
 h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #FF6B6B, #FFE66D);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 40px;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #ff9966;
+    margin-bottom: 20px;
+}
+
+.message {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
 }
 
 .countdown {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+/* 天数竖直排列 */
+.days-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     align-items: center;
-    gap: 20px;
-    margin: 40px 0;
+}
+
+/* 时分秒横向排列 */
+.time-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .number-group {
     display: flex;
-    gap: 6px;
-    align-items: center;
+    gap: 4px;
 }
 
 .flip-card {
+    background: #1c1c1e;
+    border-radius: 8px;
+    width: 60px;
+    height: 80px;
     position: relative;
-    width: 80px;
-    height: 120px;
-    perspective: 1000px;
-    margin: 0 2px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.card-top,
-.card-bottom,
-.card-back .card-bottom {
-    position: absolute;
+.flip-card .number {
     width: 100%;
     height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4.5rem;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: 600;
     color: #fff;
-    background: #2c2c2e;
-    border-radius: 8px;
-    overflow: hidden;
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
+    background: #1c1c1e;
+    position: relative;
 }
 
-.card-top {
-    background: linear-gradient(180deg, #3a3a3c 0%, #2c2c2e 100%);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    transform-origin: bottom;
-}
-
-.card-bottom {
-    bottom: 0;
-    background: linear-gradient(180deg, #2c2c2e 0%, #1c1c1e 100%);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-
-.card-back {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.card-back .card-bottom {
-    background: linear-gradient(180deg, #2c2c2e 0%, #1c1c1e 100%);
-    transform-origin: top;
-    transform: rotateX(180deg);
-}
-
-.flip-card.flip .card-top {
-    animation: flipTop 0.6s ease-out;
-    transform-origin: bottom;
-}
-
-.flip-card.flip .card-back .card-bottom {
-    animation: flipBottom 0.6s ease-out;
-}
-
-@keyframes flipTop {
-    0% { transform: rotateX(0deg); }
-    100% { transform: rotateX(-180deg); }
-}
-
-@keyframes flipBottom {
-    0% { transform: rotateX(180deg); }
-    100% { transform: rotateX(0deg); }
+.flip-card .number:first-child {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .label {
-    font-size: 2.5rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
-    margin: 0 10px;
-}
-
-.message {
     font-size: 1.4rem;
     color: rgba(255, 255, 255, 0.8);
-    margin-top: 20px;
+    margin-top: 5px;
+}
+
+.separator {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 5px;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
     .countdown {
-        gap: 10px;
+        gap: 20px;
     }
 
     .flip-card {
-        width: 60px;
-        height: 90px;
+        width: 45px;
+        height: 60px;
     }
 
-    .card-top,
-    .card-bottom,
-    .card-back .card-bottom {
-        font-size: 3.5rem;
+    .flip-card .number {
+        font-size: 2.2rem;
     }
 
-    .label {
-        font-size: 2rem;
-        margin: 0 5px;
+    .separator {
+        font-size: 1.6rem;
     }
 
     h1 {
-        font-size: 2.4rem;
+        font-size: 2.2rem;
     }
 }
 
@@ -173,36 +135,36 @@ h1 {
         padding: 20px;
     }
 
+    .countdown {
+        gap: 15px;
+    }
+
     .flip-card {
-        width: 40px;
-        height: 60px;
+        width: 35px;
+        height: 50px;
     }
 
-    .card-top,
-    .card-bottom,
-    .card-back .card-bottom {
-        font-size: 2.5rem;
+    .flip-card .number {
+        font-size: 1.8rem;
     }
 
-    .label {
-        font-size: 1.6rem;
+    .separator {
+        font-size: 1.4rem;
         margin: 0 3px;
     }
 
+    .label {
+        font-size: 1.2rem;
+    }
+
     h1 {
-        font-size: 2rem;
-        margin-bottom: 20px;
-    }
-
-    .countdown {
-        gap: 5px;
-    }
-
-    .number-group {
-        gap: 3px;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
     }
 
     .message {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin-bottom: 20px;
     }
+} 
 } 

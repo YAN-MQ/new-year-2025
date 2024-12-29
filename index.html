@@ -5,96 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2025新年倒计时</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <div class="countdown-wrapper">
             <h1>2025新年倒计时</h1>
+            <div class="message">距离2025年还有</div>
             <div class="countdown">
-                <!-- 天数 -->
-                <div class="number-group">
+                <!-- 天数（竖直排列） -->
+                <div class="days-column">
                     <div class="flip-card" id="days-hundreds">
-                        <div class="card-top">0</div>
-                        <div class="card-bottom">0</div>
-                        <div class="card-back">
-                            <div class="card-bottom">0</div>
-                        </div>
+                        <div class="number">0</div>
+                        <div class="number">0</div>
                     </div>
                     <div class="flip-card" id="days-tens">
-                        <div class="card-top">0</div>
-                        <div class="card-bottom">0</div>
-                        <div class="card-back">
-                            <div class="card-bottom">0</div>
-                        </div>
+                        <div class="number">0</div>
+                        <div class="number">0</div>
                     </div>
                     <div class="flip-card" id="days-ones">
-                        <div class="card-top">0</div>
-                        <div class="card-bottom">0</div>
-                        <div class="card-back">
-                            <div class="card-bottom">0</div>
-                        </div>
+                        <div class="number">0</div>
+                        <div class="number">0</div>
                     </div>
                     <span class="label">天</span>
                 </div>
 
-                <!-- 小时 -->
-                <div class="number-group">
-                    <div class="flip-card" id="hours-tens">
-                        <div class="card-top">0</div>
-                        <div class="card-bottom">0</div>
-                        <div class="card-back">
-                            <div class="card-bottom">0</div>
+                <!-- 时分秒（横向排列） -->
+                <div class="time-row">
+                    <div class="number-group">
+                        <div class="flip-card" id="hours-tens">
+                            <div class="number">0</div>
+                            <div class="number">0</div>
+                        </div>
+                        <div class="flip-card" id="hours-ones">
+                            <div class="number">0</div>
+                            <div class="number">0</div>
                         </div>
                     </div>
-                    <div class="flip-card" id="hours-ones">
-                        <div class="card-top">0</div>
-                        <div class="card-bottom">0</div>
-                        <div class="card-back">
-                            <div class="card-bottom">0</div>
+                    <span class="separator">:</span>
+                    <div class="number-group">
+                        <div class="flip-card" id="minutes-tens">
+                            <div class="number">0</div>
+                            <div class="number">0</div>
+                        </div>
+                        <div class="flip-card" id="minutes-ones">
+                            <div class="number">0</div>
+                            <div class="number">0</div>
                         </div>
                     </div>
-                    <span class="label">:</span>
-                </div>
-
-                <!-- 分钟 -->
-                <div class="number-group">
-                    <div class="flip-card" id="minutes-tens">
-                        <div class="card-top">0</div>
-                        <div class="card-bottom">0</div>
-                        <div class="card-back">
-                            <div class="card-bottom">0</div>
+                    <span class="separator">:</span>
+                    <div class="number-group">
+                        <div class="flip-card" id="seconds-tens">
+                            <div class="number">0</div>
+                            <div class="number">0</div>
                         </div>
-                    </div>
-                    <div class="flip-card" id="minutes-ones">
-                        <div class="card-top">0</div>
-                        <div class="card-bottom">0</div>
-                        <div class="card-back">
-                            <div class="card-bottom">0</div>
-                        </div>
-                    </div>
-                    <span class="label">:</span>
-                </div>
-
-                <!-- 秒 -->
-                <div class="number-group">
-                    <div class="flip-card" id="seconds-tens">
-                        <div class="card-top">0</div>
-                        <div class="card-bottom">0</div>
-                        <div class="card-back">
-                            <div class="card-bottom">0</div>
-                        </div>
-                    </div>
-                    <div class="flip-card" id="seconds-ones">
-                        <div class="card-top">0</div>
-                        <div class="card-bottom">0</div>
-                        <div class="card-back">
-                            <div class="card-bottom">0</div>
+                        <div class="flip-card" id="seconds-ones">
+                            <div class="number">0</div>
+                            <div class="number">0</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="message">距离2025年还有</div>
         </div>
     </div>
     <script src="script.js"></script>

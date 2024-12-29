@@ -33,21 +33,10 @@ const flipCards = {};
 
 // 更新数字显示
 function updateDisplay(id, number) {
-    if (id === 'days') {
-        const hundreds = Math.floor(number / 100);
-        const tens = Math.floor((number % 100) / 10);
-        const ones = number % 10;
-        
-        flipCards['days-hundreds'].flip(hundreds);
-        flipCards['days-tens'].flip(tens);
-        flipCards['days-ones'].flip(ones);
-    } else {
-        const tens = Math.floor(number / 10);
-        const ones = number % 10;
-        
-        flipCards[`${id}-tens`].flip(tens);
-        flipCards[`${id}-ones`].flip(ones);
-    }
+    const element = document.getElementById(id);
+    const numbers = element.querySelectorAll('.number');
+    const newValue = number.toString().padStart(2, '0');
+    numbers.forEach(num => num.textContent = newValue);
 }
 
 // 倒计时功能
@@ -72,10 +61,19 @@ function updateCountdown() {
     const m = Math.floor((gap % hour) / minute);
     const s = Math.floor((gap % minute) / second);
 
-    updateDisplay('days', d);
-    updateDisplay('hours', h);
-    updateDisplay('minutes', m);
-    updateDisplay('seconds', s);
+    // 更新天数（三位数）
+    const daysStr = d.toString().padStart(3, '0');
+    updateDisplay('days-hundreds', daysStr[0]);
+    updateDisplay('days-tens', daysStr[1]);
+    updateDisplay('days-ones', daysStr[2]);
+
+    // 更新时分秒
+    updateDisplay('hours-tens', Math.floor(h / 10));
+    updateDisplay('hours-ones', h % 10);
+    updateDisplay('minutes-tens', Math.floor(m / 10));
+    updateDisplay('minutes-ones', m % 10);
+    updateDisplay('seconds-tens', Math.floor(s / 10));
+    updateDisplay('seconds-ones', s % 10);
 }
 
 // 立即更新一次

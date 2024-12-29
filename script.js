@@ -51,15 +51,15 @@ class FlipCard {
 
 // 初始化所有翻页卡片
 const flipCards = {};
-['days-hundreds', 'days-tens', 'days-ones', 
- 'hours-tens', 'hours-ones', 
- 'minutes-tens', 'minutes-ones', 
- 'seconds-tens', 'seconds-ones'].forEach(id => {
+['days-hundreds', 'days-tens', 'days-ones', 'days-extra',
+ 'hours-tens', 'hours-ones', 'hours-extra',
+ 'minutes-tens', 'minutes-ones', 'minutes-extra',
+ 'seconds-tens', 'seconds-ones', 'seconds-extra'].forEach(id => {
     flipCards[id] = new FlipCard(document.getElementById(id));
 });
 
 // 更新数字显示
-function updateDisplay(id, number) {
+function updateDisplay(id, number, extra) {
     if (id === 'days') {
         const hundreds = Math.floor(number / 100);
         const tens = Math.floor((number % 100) / 10);
@@ -68,12 +68,14 @@ function updateDisplay(id, number) {
         flipCards['days-hundreds'].flip(hundreds);
         flipCards['days-tens'].flip(tens);
         flipCards['days-ones'].flip(ones);
+        flipCards['days-extra'].flip(extra || 1);
     } else {
         const tens = Math.floor(number / 10);
         const ones = number % 10;
         
         flipCards[`${id}-tens`].flip(tens);
         flipCards[`${id}-ones`].flip(ones);
+        flipCards[`${id}-extra`].flip(extra || (id === 'seconds' ? 4 : (id === 'minutes' ? 0 : 1)));
     }
 }
 

@@ -1,42 +1,9 @@
-class FlipCard {
-    constructor(element) {
-        this.element = element;
-        this.cardTop = element.querySelector('.card-top');
-        this.cardBottom = element.querySelector('.card-bottom');
-        this.cardBackBottom = element.querySelector('.card-back .card-bottom');
-        this.currentNumber = this.cardTop.textContent;
-    }
-
-    flip(newNumber) {
-        if (this.currentNumber === newNumber.toString()) return;
-
-        this.cardBackBottom.textContent = newNumber;
-        this.element.classList.add('flip');
-
-        setTimeout(() => {
-            this.cardTop.textContent = newNumber;
-            this.cardBottom.textContent = newNumber;
-            this.currentNumber = newNumber.toString();
-            this.element.classList.remove('flip');
-        }, 600);
-    }
-}
-
-// 初始化所有翻页卡片
-const flipCards = {};
-['days-hundreds', 'days-tens', 'days-ones',
- 'hours-tens', 'hours-ones',
- 'minutes-tens', 'minutes-ones',
- 'seconds-tens', 'seconds-ones'].forEach(id => {
-    flipCards[id] = new FlipCard(document.getElementById(id));
-});
-
 // 更新数字显示
 function updateDisplay(id, number) {
     const element = document.getElementById(id);
+    if (!element) return;
     const numbers = element.querySelectorAll('.number');
-    const newValue = number.toString().padStart(2, '0');
-    numbers.forEach(num => num.textContent = newValue);
+    numbers.forEach(num => num.textContent = number);
 }
 
 // 倒计时功能
